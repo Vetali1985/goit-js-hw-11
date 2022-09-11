@@ -1,11 +1,11 @@
 
 
-import { Axios } from 'axios';
+import axios from 'axios';
 import { getRefs } from './getRefs';
 const refs = getRefs();
 const URL = 'https://pixabay.com/api/'
 
-const axios = require('axios').default;
+// const axios = require('axios').default;
 
  
   
