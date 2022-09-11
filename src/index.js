@@ -4,7 +4,7 @@ import Notiflix, { Notify } from 'notiflix';
 // import './fetchCountries'
 import { searchImg } from './searchImg';
 import { getRefs } from './getRefs';
-import axios from 'axios';
+// import axios from 'axios';
 
 const refs = getRefs();
 refs.form.addEventListener('input', onSearchInput);
