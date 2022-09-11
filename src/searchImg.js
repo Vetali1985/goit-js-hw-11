@@ -1,6 +1,6 @@
 
 
-
+import { Axios } from 'axios';
 import { getRefs } from './getRefs';
 const refs = getRefs();
 const URL = 'https://pixabay.com/api/'
@@ -20,8 +20,9 @@ export async function searchImg(inputValue) {
         orientation:'horizontal',
         safesearch:true
       }
+
     });
-    // return response.json();
+    return response.json();
    
       
   } catch (error) {
