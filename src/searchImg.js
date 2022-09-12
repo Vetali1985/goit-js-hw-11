@@ -11,17 +11,17 @@ export
   async function searchImg(name) {
 
  try {
-   const response = await axios.get(URL, {
-     params: {
-       key: '29851600-77a83c2f849f78e300f57ecf1',
-       q: `${name}`,
-       image_type: 'photo',
-       orientation: 'horizontal',
-       safesearch: true
-     }
+    const response = await axios.get(URL, {
+      params:{
+      key: '29851600-77a83c2f849f78e300f57ecf1',
+        q: `${name}`,
+      image_type:'photo',
+        orientation:'horizontal',
+        safesearch:true
+      }
 
-   }).then(onCreateImgList(data));
-    // return response.json();
+    });
+    return response.json();
    
       
   } catch (error) {

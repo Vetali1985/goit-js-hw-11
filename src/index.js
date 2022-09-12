@@ -1,10 +1,14 @@
 
 
-
+// import debounce from 'lodash.debounce';
 import Notiflix, { Notify } from 'notiflix';
+// import './css/styles.css';
+
 import { searchImg } from './searchImg'; 
 import { getRefs } from './getRefs';
-
+// import {
+//     clearCountryInfo,
+//     clearCountryList} from './clearFunction';
 
 
 
@@ -19,7 +23,7 @@ function onSearchInput(evt) {
 // refs.countryInfo.innerHTML = '';
         return
     }
-    searchImg(inputValue)
+    searchImg(inputValue).then(searchImgSuccess).catch(searchImgErorr)
 }
 function searchImgSuccess(data) {
    
@@ -32,12 +36,12 @@ function searchImgErorr() {
    console.log('не работает')
 }
 function onCreateImgList(data) {
-  console.log(data);
+ 
     const markup = data
         .map(data => {
             return `
             <span>${data.tags}</span>
-            </li>`
+            `
         })
         .join('');
     refs.galerryList.innerHTML = markup;
