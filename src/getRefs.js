@@ -1,7 +1,7 @@
 export function getRefs() {
         return {
                 form: document.querySelector('.search-form'),
-                countryList: document.querySelector('.country-list'),
+                input: document.querySelector('input'),
                 countryInfo: document.querySelector(' .country-info'),
                 btnSubmit: document.querySelector('button'),
                 galerryList:document.querySelector('.gallery')

@@ -21,11 +21,12 @@ export
       }
 
     });
-    return response.json();
+   return response;
+   
    
       
   } catch (error) {
-   
+  //  console.error(error);
   }
 }
 

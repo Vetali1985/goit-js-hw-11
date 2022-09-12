@@ -2,7 +2,7 @@
 
 // import debounce from 'lodash.debounce';
 import Notiflix, { Notify } from 'notiflix';
-// import './css/styles.css';
+import './css/style.css'
 
 import { searchImg } from './searchImg'; 
 import { getRefs } from './getRefs';
@@ -13,34 +13,50 @@ import { getRefs } from './getRefs';
 
 
 const refs = getRefs();
-refs.form.addEventListener('input', onSearchInput);
-
+refs.form.addEventListener('submit', onSearchInput);
+console.dir(refs.form);
 function onSearchInput(evt) {
-  const inputValue = evt.target.value.trim();
+  evt.preventDefault();
+  const inputValue = evt.currentTarget.elements.searchQuery.value.trim();
   console.log(inputValue)
-    if (!inputValue) {
-// refs.countryList.innerHTML = '';
-// refs.countryInfo.innerHTML = '';
-        return
-    }
-    searchImg(inputValue).then(searchImgSuccess).catch(searchImgErorr)
+ 
+//     if (!inputValue) {
+// // refs.countryList.innerHTML = '';
+// // refs.countryInfo.innerHTML = '';
+//         return
+//     }
+    searchImg(inputValue).then(searchImgSuccess)
 }
 function searchImgSuccess(data) {
    
-  onCreateImgList(data);
+  onCreateImgList(data.data.hits);
     
 }
 
 
-function searchImgErorr() {
-   console.log('не работает')
-}
-function onCreateImgList(data) {
+
+function onCreateImgList(array) {
  
-    const markup = data
-        .map(data => {
+    const markup = array
+        .map(({tags,webformatURL,likes,views,comments,downloads}) => {
             return `
-            <span>${data.tags}</span>
+            <div class="photo-card">
+  <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+  <div class="info">
+    <p class="info-item">
+      <b>Likes:${likes}</b>
+    </p>
+    <p class="info-item">
+      <b>Views:${views}</b>
+    </p>
+    <p class="info-item">
+      <b>Comments:${comments}</b>
+    </p>
+    <p class="info-item">
+      <b>Downloads:${downloads}</b>
+    </p>
+  </div>
+</div>
             `
         })
         .join('');
