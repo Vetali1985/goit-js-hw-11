@@ -17,10 +17,12 @@ export
         q: `${name}`,
       image_type:'photo',
         orientation:'horizontal',
-        safesearch:true
+        safesearch: true,
+        page: 1,
       }
 
     });
+  //  console.log(response)
    return response;
    
    

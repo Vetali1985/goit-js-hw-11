@@ -3,8 +3,17 @@ img {
   max-width: 100%;
   height: auto;
 }
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
 
-.gallery {
+body {
+  background-color: #f1f5f8;
+  font-family: ' OpenSans ', sans - serif;
+}
+I .gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

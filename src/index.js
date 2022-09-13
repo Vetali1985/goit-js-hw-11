@@ -1,42 +1,45 @@
 
 
 // import debounce from 'lodash.debounce';
-import Notiflix, { Notify } from 'notiflix';
+import { Notify } from 'notiflix';
 import './css/style.css'
 
 import { searchImg } from './searchImg'; 
 import { getRefs } from './getRefs';
-// import {
-//     clearCountryInfo,
-//     clearCountryList} from './clearFunction';
+import { formReset, galleryReset } from './clearFunction';
+import {
+  galleryReset,
+  formReset
+} from './clearFunction';
 
 
 
 const refs = getRefs();
+
 refs.form.addEventListener('submit', onSearchInput);
 console.dir(refs.form);
 function onSearchInput(evt) {
   evt.preventDefault();
   const inputValue = evt.currentTarget.elements.searchQuery.value.trim();
-  console.log(inputValue)
- 
-//     if (!inputValue) {
-// // refs.countryList.innerHTML = '';
-// // refs.countryInfo.innerHTML = '';
-//         return
-//     }
-    searchImg(inputValue).then(searchImgSuccess)
+    if (!inputValue) {
+      return
+    }
+  searchImg(inputValue).then(searchImgSuccess);
+  formReset()
 }
 function searchImgSuccess(data) {
-   
-  onCreateImgList(data.data.hits);
+  const responceArray = data.data.hits;
+    if (responceArray.length === 0) {
+      Notify.warning(
+        "Sorry, there are no images matching your search query. Please try again.");  
+ }
+  galleryReset()
+  onCreateImgList(responceArray);
+  
     
 }
 
-
-
 function onCreateImgList(array) {
- 
     const markup = array
         .map(({tags,webformatURL,likes,views,comments,downloads}) => {
             return `
@@ -60,6 +63,6 @@ function onCreateImgList(array) {
             `
         })
         .join('');
-    refs.galerryList.innerHTML = markup;
+    refs.galerryList.insertAdjacentHTML("beforeend", markup); 
     
 };
