@@ -5,25 +5,29 @@ import { getRefs } from './getRefs';
 const refs = getRefs();
 const URL = 'https://pixabay.com/api/'
 
+// export default class ApiService{
+//   constructor() { }
+  
+// }
 
 
-export
-  async function searchImg(name) {
+  export async function searchImg(name) {
 
  try {
     const response = await axios.get(URL, {
       params:{
       key: '29851600-77a83c2f849f78e300f57ecf1',
-        q: `${name}`,
+        q: name,
       image_type:'photo',
         orientation:'horizontal',
-        safesearch: true,
+        safesearch: true, 
         page: 1,
+        per_page: 40,
       }
 
     });
-  //  console.log(response)
-   return response;
+   console.log(response.data)
+   return response.data;
    
    
       

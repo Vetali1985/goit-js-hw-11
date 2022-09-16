@@ -2,6 +2,7 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+  border-radius: 10px;
 }
 * {
   margin: 0px;
@@ -10,23 +11,50 @@ img {
 }
 
 body {
-  background-color: #f1f5f8;
-  font-family: ' OpenSans ', sans - serif;
+  background-color: bisque;
+  font-family: ' OpenSans ', sans-serif;
 }
-I .gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-top: 20px;
-}
-.search-form {
-  margin-top: 2em;
-  width: 50%;
+.container {
+  width: 1680px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.gallery {
   display: flex;
-  justify-content: space-around;
-  justify-items: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin: -20px;
+}
+
+.photo-card {
+  margin: 20px;
+  flex-basis: calc(25% - 40px);
+  border-radius: 10%;
+}
+
+.search-form {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: rgb(157, 210, 175);
+}
+.form-input {
+  padding: 10px;
+  border: none;
+  border-bottom-left-radius: 6px;
+  border-top-left-radius: 6px;
+}
+.btn-submit {
+  border: none;
+  border-bottom-right-radius: 6px;
+  border-top-right-radius: 6px;
+  padding: 10px;
+}
+.info {
+  display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
 }
