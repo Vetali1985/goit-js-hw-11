@@ -16,37 +16,55 @@ import { onCreateImgList } from './onCreateImgList';
 const refs = getRefs();
 
 refs.form.addEventListener('submit', onSearchInput);
-refs.loadMoreBtn.addEventListener('click',onLoadMore)
 
-
-function onSearchInput(evt) {
+let page = 1;
+let currentHits = 0;
+let inputValue = '';
+ refs.loadMoreBtn.classList.add('is-hidden');
+async function onSearchInput(evt) {
   evt.preventDefault();
-  const inputValue = evt.currentTarget.elements.searchQuery.value.trim();
-    if (!inputValue) {
+  inputValue = evt.currentTarget.elements.searchQuery.value.trim();
+  page = 1;
+  if (!inputValue) {
+    formReset()
       return
-    }
-  searchImg(inputValue).then(searchImgSuccess);
-  formReset()
+  }
+  const response = await searchImg(inputValue, page);
+  currentHits = response.hits.length;
+
+  if (response.totalHits > 40) {
+    refs.loadMoreBtn.classList.remove('is-hidden');
+  } else {
+    refs.loadMoreBtn.classList.add('is-hidden');
+  }
+  if (response.totalHits > 0) {
+    Notify.success(`Hooray! We found ${response.totalHits} images.`);
+    formReset();
+    onCreateImgList(response.hits);
+    // scroll(-100);
+  }
+  if (response.totalHits === 0) {
+    formReset();
+    Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    refs.loadMoreBtn.classList.add('is-hidden');
+  }
 }
 
+refs.loadMoreBtn.addEventListener('click',onMore)
 
+async function onMore() {
+  page += 1;
+  const response = await searchImg(inputValue, page);
+  searchImg(response.hits);
+  currentHits += response.hits.length;
 
+  // scroll(2);
 
-function searchImgSuccess({hits}) {
-    if (hits.length === 0) {
-      Notify.warning(
-        "Sorry, there are no images matching your search query. Please try again.");  
- }
-  galleryReset()
-  onCreateImgList(hits);
-  
-    
+  if (currentHits >= response.totalHits) {
+    refs.loadMoreBtn.classList.add('is-hidden');
+    Notify.info("We're sorry, but you've reached the end of search results.");
+  }
 }
-
-
-function onLoadMore() {
- 
-}
-
-
 
