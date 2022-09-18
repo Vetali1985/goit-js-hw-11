@@ -13,6 +13,7 @@ import {
   formReset
 } from './clearFunction';
 import { onCreateImgList } from './onCreateImgList';
+import { scroll } from './scroll';
 const refs = getRefs();
 
 refs.form.addEventListener('submit', onSearchInput);
@@ -20,7 +21,8 @@ refs.form.addEventListener('submit', onSearchInput);
 let page = 1;
 let currentHits = 0;
 let inputValue = '';
- refs.loadMoreBtn.classList.add('is-hidden');
+refs.loadMoreBtn.classList.add('is-hidden');
+ 
 async function onSearchInput(evt) {
   evt.preventDefault();
   inputValue = evt.currentTarget.elements.searchQuery.value.trim();
@@ -30,6 +32,7 @@ async function onSearchInput(evt) {
       return
   }
   const response = await searchImg(inputValue, page);
+  console.log(response)
   currentHits = response.hits.length;
 
   if (response.totalHits > 40) {
@@ -41,7 +44,7 @@ async function onSearchInput(evt) {
     Notify.success(`Hooray! We found ${response.totalHits} images.`);
     formReset();
     onCreateImgList(response.hits);
-    // scroll(-100);
+    scroll(-100);
   }
   if (response.totalHits === 0) {
     formReset();
@@ -56,11 +59,13 @@ refs.loadMoreBtn.addEventListener('click',onMore)
 
 async function onMore() {
   page += 1;
+
   const response = await searchImg(inputValue, page);
-  searchImg(response.hits);
+  onCreateImgList(response.hits);
+  
   currentHits += response.hits.length;
 
-  // scroll(2);
+  scroll(2);
 
   if (currentHits >= response.totalHits) {
     refs.loadMoreBtn.classList.add('is-hidden');

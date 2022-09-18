@@ -11,7 +11,7 @@ const URL = 'https://pixabay.com/api/'
 // }
 
 
-  export async function searchImg(name) {
+  export async function searchImg(name, page) {
 
  try {
     const response = await axios.get(URL, {
@@ -21,7 +21,7 @@ const URL = 'https://pixabay.com/api/'
       image_type:'photo',
         orientation:'horizontal',
         safesearch: true, 
-        page: 1,
+        page: `${page}`,
         per_page: 40,
       }
 
