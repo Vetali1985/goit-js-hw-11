@@ -41,6 +41,7 @@ async function onSearchInput(evt) {
     refs.loadMoreBtn.classList.add('is-hidden');
   }
   if (response.totalHits > 0) {
+    galleryReset()
     Notify.success(`Hooray! We found ${response.totalHits} images.`);
     formReset();
     onCreateImgList(response.hits);
